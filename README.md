@@ -4,7 +4,7 @@ cache-js
 
 Build
 -----
-For build usage [[https://github.com/mishoo/UglifyJS][UglifyJS]]
+For build usage [UglifyJS](https://github.com/mishoo/UglifyJS)
 
 type:
 
