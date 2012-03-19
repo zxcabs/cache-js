@@ -18,26 +18,58 @@
 				}
 			}
 			
+			cls = function () {
+				var el = document.getElementById('log');
+				if (el) {
+					el.innerHTML = '';
+				}
+			}
+			
 			//!!Fake data load
 			function loadData(param, fn) {
-				log('load');
+				log('load: ' + JSON.stringify(param));
 				
 				setTimeout(function () {
-					fn(null, 'some data');
-				}, 5000);
+					fn(null, JSON.stringify(param));
+				}, 2500);
 			}			
 			
 			function onLoad() {
 				var butt1 = document.getElementById('butt1'),
-					load1 = cache(loadData);
+					butt2 = document.getElementById('butt2'),
+					butt3 = document.getElementById('butt3'),
+					buttCls = document.getElementById('cls')
+					load1 = cache(loadData),
+					load2 = cache({ expire: 10 * 1000 }, loadData);
 				
 				function onButt1() {
+					log('Butt1: click');
 					load1('asdasd', function (err, data) {
 						log('Butt1: ' + data);
 					});
 				}
 				
+				function onButt2() {
+					log('Butt2: click');
+					load2('asdasd', function (err, data) {
+						log('Butt2: ' + data);
+					});
+				}
+				
+				function onButt3() {
+					var arg = { a: Math.floor(Math.random() * 5) };
+					log('Butt3: click (' + JSON.stringify(arg) + ')');
+					
+					load2(arg, function (err, data) {
+						log('Butt3: arg = ' + JSON.stringify(arg) + ' => '  + data);
+					});
+				}
+				
+				
 				butt1.onclick = onButt1;
+				butt2.onclick = onButt2;
+				butt3.onclick = onButt3;
+				buttCls.onclick = cls;
 			}
 			
 			window.onload = onLoad;
@@ -45,6 +77,11 @@
 	</head>
 	<body>
 		<button id='butt1'>get data</button>
+		<button id='butt2'>get data (expire 10s)</button>
+		<button id='butt3'>get data (RND argument and expire 10s)</button>
+		<br>
+			<button id='cls'>cls</button>
+		<br>
 		<div id='log'></div>
 	</body>
 </html>
