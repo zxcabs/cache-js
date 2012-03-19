@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+	<head>
+		<script src='../lib/cache.js'></script>
+		<script>
+			
+			var log;
+			log = function (str) {
+				var el = document.getElementById('log');
+				
+				if (el) {
+					log = function (str) {
+						var s = el.innerHTML + '<br>' + str;
+						el.innerHTML = s;
+					};
+					
+					log(str);
+				}
+			}
+			
+			//!!Fake data load
+			function loadData(param, fn) {
+				log('load');
+				
+				setTimeout(function () {
+					fn(null, 'some data');
+				}, 5000);
+			}			
+			
+			function onLoad() {
+				var butt1 = document.getElementById('butt1'),
+					load1 = cache(loadData);
+				
+				function onButt1() {
+					load1('asdasd', function (err, data) {
+						log('Butt1: ' + data);
+					});
+				}
+				
+				butt1.onclick = onButt1;
+			}
+			
+			window.onload = onLoad;
+		</script>
+	</head>
+	<body>
+		<button id='butt1'>get data</button>
+		<div id='log'></div>
+	</body>
+</html>

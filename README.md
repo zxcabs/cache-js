@@ -4,7 +4,7 @@ cache-js
 
 Example
 -------
-//TODO
+See example folder
 
 
 Platform
