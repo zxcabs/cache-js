@@ -38,9 +38,14 @@
 				var butt1 = document.getElementById('butt1'),
 					butt2 = document.getElementById('butt2'),
 					butt3 = document.getElementById('butt3'),
-					buttCls = document.getElementById('cls')
+					buttCls = document.getElementById('cls'),
+					buttClear = document.getElementById('clear'),
+					buttClear1 = document.getElementById('clear1'),
+					buttClear2 = document.getElementById('clear2'),
+					buttClear3 = document.getElementById('clear3'),
 					load1 = cache({ storage: 'local' }, loadData),
 					load2 = cache({ expire: 10 * 1000, storage: 'local' }, loadData);
+					load3 = cache({ expire: 10 * 1000, storage: 'local' }, loadData);
 				
 				function onButt1() {
 					log('Butt1: click');
@@ -60,16 +65,35 @@
 					var arg = { a: Math.floor(Math.random() * 5) };
 					log('Butt3: click (' + JSON.stringify(arg) + ')');
 					
-					load2(arg, function (err, data) {
+					load3(arg, function (err, data) {
 						log('Butt3: arg = ' + JSON.stringify(arg) + ' => '  + data);
 					});
 				}
 				
+				function onClear() {
+					localStorage.clear();
+				}	
+
+				function onClear1() {
+					load1.clearCache();
+				}
+				
+				function onClear2() {
+					load2.clearCache();
+				}
+				
+				function onClear3() {
+					load3.clearCache();
+				}				
 				
 				butt1.onclick = onButt1;
 				butt2.onclick = onButt2;
 				butt3.onclick = onButt3;
 				buttCls.onclick = cls;
+				buttClear.onclick = onClear;
+				buttClear1.onclick = onClear1;
+				buttClear2.onclick = onClear2;
+				buttClear3.onclick = onClear3;
 			}
 			
 			window.onload = onLoad;
@@ -82,6 +106,10 @@
 		<button id='butt3'>get data (RND argument and expire 10s)</button>
 		<br>
 			<button id='cls'>cls</button>
+			<button id='clear'>clear localStorage</button>
+			<button id='clear1'>clear cache 1</button>
+			<button id='clear2'>clear cache 2</button>
+			<button id='clear3'>clear cache 3</button>
 		<br>
 		<div id='log'></div>
 	</body>
