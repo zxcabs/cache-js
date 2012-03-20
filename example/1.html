@@ -10,7 +10,7 @@
 				
 				if (el) {
 					log = function (str) {
-						var s = el.innerHTML + '<br>' + str;
+						var s = (new Date()).toLocaleTimeString() + ': ' + str + '<br>' + el.innerHTML;
 						el.innerHTML = s;
 					};
 					
@@ -44,15 +44,15 @@
 				
 				function onButt1() {
 					log('Butt1: click');
-					load1('asdasd', function (err, data) {
-						log('Butt1: ' + data);
+					load1('Some string 1', function (err, data) {
+						log('result 1: ' + data);
 					});
 				}
 				
 				function onButt2() {
 					log('Butt2: click');
-					load2('asdasd', function (err, data) {
-						log('Butt2: ' + data);
+					load2('Some string 2', function (err, data) {
+						log('result 2: ' + data);
 					});
 				}
 				
@@ -61,7 +61,7 @@
 					log('Butt3: click (' + JSON.stringify(arg) + ')');
 					
 					load2(arg, function (err, data) {
-						log('Butt3: arg = ' + JSON.stringify(arg) + ' => '  + data);
+						log('result 3: arg = ' + JSON.stringify(arg) + ' => '  + data);
 					});
 				}
 				
